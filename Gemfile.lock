@@ -1,0 +1,18 @@
+PATH
+  remote: .
+  specs:
+    ttb-spreadsheet (0.6.5.8)
+      ruby-ole
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    rake (0.8.7)
+    ruby-ole (1.2.11.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  rake (~> 0.8.7)
+  ttb-spreadsheet!
