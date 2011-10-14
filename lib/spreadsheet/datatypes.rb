@@ -16,7 +16,7 @@ class << self
              :builtin_blue, :builtin_yellow, :builtin_magenta, :builtin_cyan,
              :text, :border, :pattern_bg, :dialog_bg, :chart_text, :chart_bg,
              :chart_border, :tooltip_bg, :tooltip_text, :aqua,
-             :royal_blue, :pastel_orange, :pastel_purple, :baby_blue,
+             :navajowhite, :pastel_purple, :lightskyblue,:light_cyan,
              :black, :blue, :cyan, :brown, :fuchsia, :gray, :grey, :green,
              :lime, :magenta, :navy, :orange, :purple, :red, :silver, :white,
              :yellow ]
