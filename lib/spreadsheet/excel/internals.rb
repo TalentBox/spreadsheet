@@ -86,6 +86,7 @@ module Internals
     0x004f => :chart_border,
     0x0050 => :tooltip_bg,
     0x0051 => :tooltip_text,
+    0x0038 => :royal_blue,
     0x002F => :pastel_orange,
     0x0036 => :pastel_purple,
     0x002C => :baby_blue,
