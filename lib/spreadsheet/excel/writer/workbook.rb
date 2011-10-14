@@ -380,6 +380,42 @@ class Workbook < Spreadsheet::Writer
       end
     end
   end
+  def write_autofilter_NAME_RECORD workbook, writer
+    return
+    selected_sheet = workbook.worksheets.find {|sheet| sheet.selected }
+    return unless selected_sheet.autofilter_enabled
+    active_idx = workbook.worksheets.index(selected_sheet)
+    data = [
+      0x020,  #Options => Built-in name
+      0x000,  #Keyboard shortcut
+      0x001,  #Length of the name
+      0x00B,  #Size of formula  
+      0x000,  #Not used
+      0x000,  #Not used
+      0x000,  #Not used
+      active_idx + 1,  #index to sheet
+      0x000,  #Length of menu text
+      0x000,  #Length of description text
+      0x000,  #Length of help topic text
+      0x000,  #Length of status bar text
+      0x000,  
+      0x000,  #Name -> consolidated area
+        #Formula in RPN Size
+      0x00D,  #Size
+      0x03B,  #AreaPtg id
+      active_idx,   #sheet index, zero based?
+      0x000,   
+      0x000,  #firstrow
+      0x000,
+      0x000,  #lastrow
+      0x000,
+      selected_sheet.autofilter_left_column_index,  #firstcolumn
+      0x000,
+      selected_sheet.autofilter_right_column_index,  #lastcolumn
+      0x000  
+    ]
+    write_op writer, 0x018, data.pack('vC*')
+  end
   ##
   # Write a new Excel file.
   def write_from_scratch workbook, io
@@ -433,6 +469,7 @@ class Workbook < Spreadsheet::Writer
     buffer2 = StringIO.new ''
     # ○  COUNTRY ➜ 5.22
     # ○  Link Table ➜ 4.10.3
+    write_autofilter_NAME_RECORD workbook, buffer2
     # ○○ NAME ➜ 6.66
     # ○  Shared String Table ➜ 4.11
     # ●  SST ➜ 5.100

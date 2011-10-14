@@ -338,6 +338,14 @@ and minimal code that generates this warning. Thanks!
     ]
     write_op opcode(:colinfo), data.pack(binfmt(:colinfo))
   end
+
+  def write_autofilter
+    return unless @worksheet.autofilter_enabled
+    number_of_autofilter_columns = @worksheet.autofilter_right_column_index - @worksheet.autofilter_left_column_index + 1  
+    data = [number_of_autofilter_columns]
+    write_op 0x09D, data.pack('v1')
+  end
+  
   def write_colinfos
     cols = @worksheet.columns
     bunch = []
@@ -475,6 +483,7 @@ and minimal code that generates this warning. Thanks!
     write_defcolwidth
     # ○○ COLINFO ➜ 5.18
     write_colinfos
+    write_autofilter
     # ○  SORT ➜ 5.99
     # ●  DIMENSIONS ➜ 5.35
     write_dimensions

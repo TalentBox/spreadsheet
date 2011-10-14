@@ -27,6 +27,7 @@ module Spreadsheet
     include Spreadsheet::Encodings
     include Enumerable
     attr_accessor :name, :selected, :workbook
+    attr_reader :autofilter_enabled, :autofilter_left_column_index, :autofilter_right_column_index
     attr_reader :rows, :columns
     def initialize opts={}
       @default_format = nil
@@ -250,6 +251,15 @@ module Spreadsheet
     # See also Row#[]=.
     def []= row, column, value
       row(row)[column] = value
+    end
+    ##
+    # enable autofiltering on this sheet, NOTE autofiltering can (for now) only 
+    # be done on 1 sheet and on the first row starting from column on 
+    # left_column_index (0 based) up to right column_index (0 based)
+    def enable_autofilter(number_of_autofilter_columns)
+      @autofilter_enabled = true
+      @autofilter_left_column_index = 0
+      @autofilter_right_column_index = number_of_autofilter_columns - 1
     end
     private
     def index_of_first ary # :nodoc:
